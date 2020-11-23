@@ -9,24 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ventas.BL;
 
-namespace Ventas.win
+namespace Ventas1.Win
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+            var productoBL = new productosBL();
+            var listadeProductos = productoBL.ObtenerProductos();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var productosBL = new productosBL();
-            var listadeProductos = productosBL.ObtenerProductos();
-
-            foreach (var productos in listadeProductos)
-            {
-                MessageBox.Show(productos.Descripcion);
-            }
-        }
     }
 }
