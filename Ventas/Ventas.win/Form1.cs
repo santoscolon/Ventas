@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ventas.BL;
 
 namespace Ventas.win
 {
@@ -19,7 +20,13 @@ namespace Ventas.win
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hola");
+            var productosBL = new productosBL();
+            var listadeProductos = productosBL.ObtenerProductos();
+
+            foreach (var productos in listadeProductos)
+            {
+                MessageBox.Show(productos.Descripcion);
+            }
         }
     }
 }

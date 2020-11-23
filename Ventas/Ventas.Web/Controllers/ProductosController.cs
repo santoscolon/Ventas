@@ -15,7 +15,7 @@ namespace Ventas.Web.Controllers
             var productoBL = new productosBL();
             var listadeProductos = productoBL.ObtenerProductos();
 
-            return View();
+            return View(listadeProductos);
         }
     }
 }
