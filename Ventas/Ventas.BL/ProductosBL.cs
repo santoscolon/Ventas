@@ -22,5 +22,11 @@ namespace Ventas.BL
             ListadeProductos = _contexto.Producto.ToList();
             return ListadeProductos;
         }
+
+        public void GuardarProducto(Producto producto)
+        {
+            _contexto.Producto.Add(producto);
+            _contexto.SaveChanges();
+        } 
     }
 }
