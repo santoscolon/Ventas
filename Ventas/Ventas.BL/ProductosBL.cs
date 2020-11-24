@@ -25,8 +25,32 @@ namespace Ventas.BL
 
         public void GuardarProducto(Producto producto)
         {
-            _contexto.Producto.Add(producto);
+            if(producto.Id == 0)
+            {
+                _contexto.Producto.Add(producto);
+            }
+            else
+            {
+                var productoExistente = _contexto.Producto.Find(producto.Id);
+                productoExistente.Descripcion = producto.Descripcion;
+                productoExistente.Precio = producto.Precio;
+            }           
             _contexto.SaveChanges();
         } 
+
+        public Producto ObtenerProducto(int id)
+        {
+            var producto = _contexto.Producto.Find(id);
+
+            return producto;
+        }
+
+        public void EliminarProducto(int id)
+        {
+            var producto = _contexto.Producto.Find(id);
+
+            _contexto.Producto.Remove(producto);
+            _contexto.SaveChanges();
+        }
     }
 }
