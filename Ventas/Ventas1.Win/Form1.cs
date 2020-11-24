@@ -18,7 +18,8 @@ namespace Ventas1.Win
             InitializeComponent();
             var productoBL = new productosBL();
             var listadeProductos = productoBL.ObtenerProductos();
-        }
 
+            listadeProductosBindingSource.DataSource = listadeProductos;
+        }
     }
 }
