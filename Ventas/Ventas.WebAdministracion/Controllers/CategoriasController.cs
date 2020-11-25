@@ -45,5 +45,35 @@ namespace Ventas.WebAdministracion.Controllers
 
             return View(producto);
         }
+
+        [HttpPost]
+        public ActionResult Editar(Categoria producto)
+        {
+            _categoriasBL.GuardarCategoria(producto);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Detalle(int id)
+        {
+            var producto = _categoriasBL.ObtenerCategoria(id);
+
+            return View(producto);
+        }
+
+        public ActionResult Eliminar(int id)
+        {
+            var producto = _categoriasBL.ObtenerCategoria(id);
+
+            return View(producto);
+        }
+
+        [HttpPost]
+        public ActionResult Eliminar (Categoria producto)
+        {
+            _categoriasBL.EliminarCategoria(producto.Id);
+
+            return RedirectToAction("Index");
+        }
     }
 }
