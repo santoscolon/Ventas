@@ -10,10 +10,12 @@ namespace Ventas.WebAdministracion.Controllers
     public class ProductosController : Controller
     {
         productosBL _productosBL;
+        CategoriasBL _categoriasBL;
 
         public ProductosController()
         {
             _productosBL = new productosBL();
+            _categoriasBL = new CategoriasBL();
         }
 
         // GET: Productos
@@ -27,6 +29,9 @@ namespace Ventas.WebAdministracion.Controllers
         public ActionResult Crear()
         {
             var nuevoProducto = new Producto();
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.ListadeCategorias = new SelectList(categorias, "Id", "Descripcion");
 
             return View(nuevoProducto);
         }
@@ -42,6 +47,9 @@ namespace Ventas.WebAdministracion.Controllers
         public ActionResult Editar(int id)
         {
             var producto = _productosBL.ObtenerProducto(id);
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId = new SelectList(categorias, "Id", "Descripcion", producto.CategoriaId);
 
             return View(producto);
         }
@@ -64,6 +72,7 @@ namespace Ventas.WebAdministracion.Controllers
         public ActionResult Eliminar(int id)
         {
             var producto = _productosBL.ObtenerProducto(id);
+            var categorias = _categoriasBL.ObtenerCategorias();
 
             return View(producto);
         }

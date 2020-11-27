@@ -19,7 +19,9 @@ namespace Ventas.BL
 
        public List<Producto> ObtenerProductos()
         {
-            ListadeProductos = _contexto.Producto.ToList();
+            ListadeProductos = _contexto.Producto.Include("Categoria")
+                .ToList();
+
             return ListadeProductos;
         }
 
@@ -40,7 +42,7 @@ namespace Ventas.BL
 
         public Producto ObtenerProducto(int id)
         {
-            var producto = _contexto.Producto.Find(id);
+            var producto = _contexto.Producto.Include("Categoria").FirstOrDefault(p => p.Id == id);
 
             return producto;
         }
