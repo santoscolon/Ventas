@@ -16,6 +16,7 @@ namespace Ventas.BL
 
         public int Id { get; set; }
 
+        [Display(Name = "Descripcion")]
         [Required(ErrorMessage = "Ingrese la descripcion")]
         public string Descripcion { get; set; }
 
@@ -25,6 +26,10 @@ namespace Ventas.BL
 
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
+
+        [Display(Name = "Imagen")]
+        public string UrlImagen { get; set; }
+
         public bool Activo { get; set; }
     }
 }

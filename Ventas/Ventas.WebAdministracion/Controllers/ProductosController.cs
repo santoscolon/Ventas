@@ -37,7 +37,7 @@ namespace Ventas.WebAdministracion.Controllers
         }
 
         [HttpPost]
-        public ActionResult Crear(Producto producto)
+        public ActionResult Crear(Producto producto, HttpPostedFileBase imagen)
         {
             if (ModelState.IsValid)
             {
@@ -45,6 +45,11 @@ namespace Ventas.WebAdministracion.Controllers
                 {
                     ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
                     return View(producto);
+                }
+
+                if (Imagen != null)
+                {
+                    producto.UrlImagen = GuardarImagen(imagen);
                 }
 
                 _productosBL.GuardarProducto(producto);
@@ -115,6 +120,14 @@ namespace Ventas.WebAdministracion.Controllers
             _productosBL.EliminarProducto(producto.Id);
 
             return RedirectToAction("Index");
+        }
+
+        private string GuardarImagen(HttpPostedFileBase imagen)
+        {
+            string path = Server.MapPath("~/Imagenes/" + imagen.FileName);
+            imagen.SaveAs(path);
+
+            return "/Imagen/" + imagen.FileName;
         }
     }
 }
