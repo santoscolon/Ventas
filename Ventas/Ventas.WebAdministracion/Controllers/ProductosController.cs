@@ -31,7 +31,7 @@ namespace Ventas.WebAdministracion.Controllers
             var nuevoProducto = new Producto();
             var categorias = _categoriasBL.ObtenerCategorias();
 
-            ViewBag.ListadeCategorias = new SelectList(categorias, "Id", "Descripcion");
+            ViewBag.CategoriaId = new SelectList(categorias, "Id", "Descripcion");
 
             return View(nuevoProducto);
         }
@@ -39,9 +39,25 @@ namespace Ventas.WebAdministracion.Controllers
         [HttpPost]
         public ActionResult Crear(Producto producto)
         {
-            _productosBL.GuardarProducto(producto);
+            if (ModelState.IsValid)
+            {
+                if (producto.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(producto);
+                }
 
-            return RedirectToAction("Index");
+                _productosBL.GuardarProducto(producto);
+
+                return RedirectToAction("Index");
+            }
+
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId = new SelectList(categorias, "Id", "Descripcion");
+
+
+            return View(producto);
         }
 
         public ActionResult Editar(int id)
@@ -57,9 +73,25 @@ namespace Ventas.WebAdministracion.Controllers
         [HttpPost]
         public ActionResult Editar(Producto producto)
         {
-            _productosBL.GuardarProducto(producto);
+            if (ModelState.IsValid)
+            {
+                if (producto.CategoriaId == 0)
+                {
+                    ModelState.AddModelError("CategoriaId", "Seleccione una categoria");
+                    return View(producto);
+                }
 
-            return RedirectToAction("Index");
+                _productosBL.GuardarProducto(producto);
+
+                return RedirectToAction("Index");
+            }
+
+            var categorias = _categoriasBL.ObtenerCategorias();
+
+            ViewBag.CategoriaId = new SelectList(categorias, "Id", "Descripcion");
+
+
+            return View(producto);
         }
 
         public ActionResult Detalle(int id)
