@@ -47,7 +47,7 @@ namespace Ventas.WebAdministracion.Controllers
                     return View(producto);
                 }
 
-                if (Imagen != null)
+                if (imagen != null)
                 {
                     producto.UrlImagen = GuardarImagen(imagen);
                 }
@@ -127,7 +127,7 @@ namespace Ventas.WebAdministracion.Controllers
             string path = Server.MapPath("~/Imagenes/" + imagen.FileName);
             imagen.SaveAs(path);
 
-            return "/Imagen/" + imagen.FileName;
+            return "/Imagenes/" + imagen.FileName;
         }
     }
 }
